@@ -43,8 +43,8 @@ Address:	172.31.0.2#53
 
 * add passwoordless integration
 on CM (ec.5) create an ssh key  
-`ssh-keygen`
-copy the pub key
+`ssh-keygen`  
+do NOT use a password when using pem it seems to fail
 
 on ec1-4.private add to the /etc/ssh/sshd_config
 ```PermitRootLogin yes
@@ -107,6 +107,8 @@ innodb_buffer_pool_size = 4G
 innodb_thread_concurrency = 8
 innodb_flush_method = O_DIRECT
 innodb_log_file_size = 512M
+bind-address = theIP
+```
 
 
 sudo service mysql start
@@ -130,21 +132,26 @@ grant all on nav.* TO 'nav'@'%' IDENTIFIED BY 'password';
 grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'password';
 ```
 
-**install jsk
+**install jdk
 ```Download JDK7 off website
 put it on the server and extract it under /usr/java
 vi /etc/enviroment and ass
 JAVA_HOME="/usr/java/jdk1.7.0_80"```
 
 * install manager
-sudo apt-get install cloudera-manager-daemons cloudera-manager-server 
+`sudo apt-get install cloudera-manager-daemons cloudera-manager-server `
 
 setup cm db
-mysal -u root -p
+```mysal -u root -p
 grant all on *.* to 'temp'@'%' identified by 'temp' with grant option;
 /usr/share/cmf/schema/scm_prepare_database.sh mysql -utemp -ptemp scm scm scm
 mysal -u root -p
-drop user 'temp'@'%';
+drop user 'temp'@'%';```
 
-sudo service cloudera-scm-server start
 
+start it
+`sudo service cloudera-scm-server start`
+
+```go to servername:7180
+search for hosts ec[1-4].private
+give it the private key to connect with ssh``` 
