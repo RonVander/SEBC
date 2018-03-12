@@ -62,7 +62,9 @@ add the public key from the cm to
 
 * Add CDH repos
 
-```sudo wget 'https://archive.cloudera.com/cdh5/ubuntu/xenial/amd64/cdh/cloudera.list' -O /etc/apt/sources.list.d/cloudera.list
+```
+sudo wget 'https://archive.cloudera.com/cm5/ubuntu/xenial/amd64/cm/cloudera.list' -O /etc/apt/sources.list.d/clouderacm.list
+sudo wget 'https://archive.cloudera.com/cdh5/ubuntu/xenial/amd64/cdh/cloudera.list' -O /etc/apt/sources.list.d/cloudera.list
 sudo wget 'https://archive.cloudera.com/cdh5/ubuntu/xenial/amd64/cdh/archive.key' -O archive.key
 sudo apt-key add archive.key
 sudo apt-get update```
@@ -127,3 +129,22 @@ grant all on sentry.* TO 'sentry'@'%' IDENTIFIED BY 'password';
 grant all on nav.* TO 'nav'@'%' IDENTIFIED BY 'password';
 grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'password';
 ```
+
+**install jsk
+```Download JDK7 off website
+put it on the server and extract it under /usr/java
+vi /etc/enviroment and ass
+JAVA_HOME="/usr/java/jdk1.7.0_80"```
+
+* install manager
+sudo apt-get install cloudera-manager-daemons cloudera-manager-server 
+
+setup cm db
+mysal -u root -p
+grant all on *.* to 'temp'@'%' identified by 'temp' with grant option;
+/usr/share/cmf/schema/scm_prepare_database.sh mysql -utemp -ptemp scm scm scm
+mysal -u root -p
+drop user 'temp'@'%';
+
+sudo service cloudera-scm-server start
+
