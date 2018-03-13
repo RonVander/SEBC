@@ -1,5 +1,6 @@
 sysconfig check commands
 
+ turln off SELINUX and firewall if needed.
 
     Check vm.swappiness on all your nodes
     ```sudo sysctl -w vm.swappiness=1
@@ -70,12 +71,16 @@ sudo apt-key add archive.key
 sudo apt-get update```
 
 * add DB server
-```sudo apt-get install mariadb-server
-mysql_secure_installation
-sudo service mysql stop
 
+```
+on slave and master
+sudo apt-get install mariadb-server
+sudo mysql_secure_installation
+sudo service mysql stop
+```
 vi /etc/mysql/my.cnf
-```[mysqld]
+```
+[mysqld]
 transaction-isolation = READ-COMMITTED
 # Disabling symbolic-links is recommended to prevent assorted security risks;
 # to do so, uncomment this line:
@@ -108,12 +113,30 @@ innodb_thread_concurrency = 8
 innodb_flush_method = O_DIRECT
 innodb_log_file_size = 512M
 bind-address = theIP
-```
-
+server-id  = UQID
 
 sudo service mysql start
 sudo apt-get install libmysql-java
+```
 
+setup replica
+```
+on master
+GRANT REPLICATION SLAVE ON *.* TO 'user'@'FQDN' IDENTIFIED BY 'password';
+SET GLOBAL binlog_format = 'ROW';
+FLUSH TABLES WITH READ LOCK;
+
+SHOW MASTER STATUS;
+UNLOCK TABLES;
+
+on slave
+CHANGE MASTER TO MASTER_HOST='ip-172-31-3-232.eu-west-1.compute.internal', MASTER_USER='replica', MASTER_PASSWORD='replica', MASTER_LOG_FILE='mysql_binary_log.000007', MASTER_LOG_POS=11531613;
+start slave
+SHOW SLAVE STATUS \G
+
+```
+setup cloudera dbs
+```
 mysql -u root -p
 
 create database amon DEFAULT CHARACTER SET utf8;
@@ -133,10 +156,13 @@ grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'password';
 ```
 
 **install jdk
-```Download JDK7 off website
+```
+Download JDK7 off website
 put it on the server and extract it under /usr/java
 vi /etc/enviroment and ass
-JAVA_HOME="/usr/java/jdk1.7.0_80"```
+JAVA_HOME="/usr/java/jdk1.7.0_80"
+```
+
 
 * install manager
 `sudo apt-get install cloudera-manager-daemons cloudera-manager-server `
