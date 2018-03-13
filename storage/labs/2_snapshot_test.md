@@ -10,3 +10,4 @@ hdfs dfs -rm /precious/SEBC.zip
 hdfs dfs -cp /precious/.snapshot/sebc-hdfs-test/SEBC.zip /precious/
 
 ```
+
