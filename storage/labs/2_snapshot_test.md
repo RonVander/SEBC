@@ -11,3 +11,5 @@ hdfs dfs -cp /precious/.snapshot/sebc-hdfs-test/SEBC.zip /precious/
 
 ```
 
+HA
+don't forget to make the maps for journals
