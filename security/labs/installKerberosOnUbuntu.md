@@ -5,6 +5,28 @@ krb5_newrealm
 service krb5-kdc enable;service krb5-kdc restart
 service krb5-admin-server enable; service krb5-admin-server restart
 
+vi kdc.conf
+```
+[kdcdefaults]
+    kdc_ports = 88
+    kdc_tcp_ports = 88
+
+[realms]
+    RONVANDER.INTERNAL = {
+        database_name = /var/lib/krb5kdc/principal
+        admin_keytab = FILE:/etc/krb5kdc/kadm5.keytab
+        acl_file = /etc/krb5kdc/kadm5.acl
+        key_stash_file = /etc/krb5kdc/stash
+        kdc_ports = 88
+        max_life = 1d
+        max_renewable_life = 7d 0h 0m 0s
+        master_key_type = des3-hmac-sha1
+        supported_enctypes = aes256-cts:normal arcfour-hmac:normal des3-hmac-sha1:normal des-cbc-crc:normal des:normal des:v4 des:norealm des:onlyrealm des:afs3
+        default_principal_flags = +preauth
+    }
+```
+
+
 systemctl enable krb5-kdc; systemctl start krb5-kdc;
 systemctl enable krb5-admin-server; systemctl start krb5-admin-server;
  
@@ -76,3 +98,50 @@ test kinits
 
 **enable kerberos on cluster**
 
+
+
+***install sentry***
+ hdfs dfs -chmod -R 771 /user/hive/warehouse
+ hdfs dfs -chown -R hive:hive /user/hive/warehouse
+
+#if not added allready
+create database sentry DEFAULT CHARACTER SET utf8;
+grant all on sentry.* TO 'sentry'@'%' IDENTIFIED BY 'sentry';
+
+install the sentry service
+
+
+ hive 
+ 	disable impersonation
+ 	proxyuser.hive.groups add 
+ 	hive
+    hue
+    sentry
+
+ Yarn set 
+ 	Minimum User ID for Job Submission property to zero (the default is 1000).
+	Allowed System User must have hive in it
+
+
+
+ YARN Allowed System Users property includes the hive user. If not, add hive.
+
+
+HIVE Select Category > Main.
+Locate the Sentry Service property and select Sentry.
+Locate the Enable Stored Notifications in Database property and select it.
+Click Save Changes to commit the changes.
+
+HUE Select Scope > Hue (Service-Wide).
+Select Category > Main.
+Locate the Sentry Service property and select Sentry.
+Click Save Changes to commit the changes.
+
+Sentry
+Select Scope > Sentry (Service-Wide).
+Select Category > Main.
+Locate the Admin Groups property and add the hive, impala and hue groups to the list. If an end user is in one of these admin groups, that user has administrative privileges on the Sentry Server.
+Click Save Changes to commit the changes.
+
+
+Create user on all the hosts
