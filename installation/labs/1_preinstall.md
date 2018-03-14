@@ -2,18 +2,21 @@ sysconfig check commands
 
  turln off SELINUX and firewall if needed.
 
+
     Check vm.swappiness on all your nodes
-    ```sudo sysctl -w vm.swappiness=1
-     cat /proc/sys/vm/swappiness```
+    ```
+    sudo sysctl -w vm.swappiness=1
+    cat /proc/sys/vm/swappiness
+    /etc/sysctl.conf
+    vm.swappiness=1
+    ```
 
 
     Show the mount attributes of your volume(s)
-    ```df -h; ls -al```
+    `df -h; ls -al`
 
     If you have ext-based volumes, list the reserve space setting
     
-
-
     Disable transparent hugepage support
     disbale it:
     ```
@@ -22,7 +25,8 @@ sysconfig check commands
     cat /sys/kernel/mm/transparent_hugepage/defrag
 	[always] madvise never
 	cat /sys/kernel/mm/transparent_hugepage/enabled
-	[always] madvise never```
+	[always] madvise never
+    ```
 
     List your network interface configuration
     `ifconfig -a`
@@ -31,9 +35,9 @@ sysconfig check commands
     `nslookup `
 
     Show the nscd service is running
-    `sudo apt-get install nscd;systemctl status nscd`
+    `sudo apt-get install nscd;systemctl status nscd; systemctl enable nscd`
     Show the ntpd service is running
-    `sudo apt-get install ntp;systemctl status ntp.service `
+    `sudo apt-get install ntp;systemctl status ntp.service; systemctl enable ntp.service; `
 
 * set root passwd on instances
 * setup dns for instances (private dns)
@@ -48,11 +52,13 @@ on CM (ec.5) create an ssh key
 do NOT use a password when using pem it seems to fail
 
 on ec1-4.private add to the /etc/ssh/sshd_config
-```PermitRootLogin yes
+```
+PermitRootLogin yes
 # Only allow root to run commands over ssh, no shell
 #PermitRootLogin forced-commands-only
 RSAAuthentication yes
-AuthorizedKeysFile     .ssh/authorized_keys```
+AuthorizedKeysFile     .ssh/authorized_keys
+```
 
 restart service 
 `systemctl restart sshd.service`
@@ -155,7 +161,7 @@ grant all on nav.* TO 'nav'@'%' IDENTIFIED BY 'password';
 grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'password';
 ```
 
-**install jdk
+install jdk
 ```
 Download JDK7 off website
 put it on the server and extract it under /usr/java
@@ -178,6 +184,8 @@ drop user 'temp'@'%';```
 start it
 `sudo service cloudera-scm-server start`
 
-```go to servername:7180
+```
+go to servername:7180
 search for hosts ec[1-4].private
-give it the private key to connect with ssh``` 
+give it the private key to connect with ssh
+``` 
