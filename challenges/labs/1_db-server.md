@@ -31,6 +31,7 @@ MariaDB [(none)]> show databases;
 | performance_schema |
 | rman               |
 | scm                |
+| hue                |
 +--------------------+
 7 rows in set (0.00 sec)
 ```
