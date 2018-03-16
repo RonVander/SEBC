@@ -6,7 +6,9 @@ clouderacm.list
 ```
 
 **setup scm db**
-```/usr/share/cmf/schema/scm_prepare_database.sh -h ip-172-31-6-218.eu-west-1.compute.internal mysql scm scm password
+```
+
+root@ip-172-31-5-14:~# /usr/share/cmf/schema/scm_prepare_database.sh -h ip-172-31-6-218.eu-west-1.compute.internal mysql scm scm password
 JAVA_HOME=/usr/java/jdk1.7.0_80
 Verifying that we can write to /etc/cloudera-scm-server
 Creating SCM configuration file in /etc/cloudera-scm-server
