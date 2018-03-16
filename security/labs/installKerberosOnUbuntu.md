@@ -32,8 +32,10 @@ systemctl enable krb5-admin-server; systemctl start krb5-admin-server;
  
  kadmin.local -q "addprinc scm@RONVANDER.INTERNAL"
  vi /etc/krb5kdc/kadm5.acl
-```*/admin@RONVANDER.INTERNAL *
-scm@RONVANDER.INTERNAL admilc```
+```
+*/admin@RONVANDER.INTERNAL *
+scm@RONVANDER.INTERNAL admilc
+```
 
 ```
 kadmin.local -q  "addpol admin"
@@ -144,4 +146,9 @@ Locate the Admin Groups property and add the hive, impala and hue groups to the 
 Click Save Changes to commit the changes.
 
 
-Create user on all the hosts
+Create ronvander user on all the hosts
+
+sudo groupadd selector
+sudo groupadd inserters
+sudo useradd -u 1100 -g selector george
+sudo useradd -u 1200 -g inserters ferdinand
