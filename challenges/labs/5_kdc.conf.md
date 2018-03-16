@@ -1,3 +1,4 @@
+```
 [kdcdefaults]
     kdc_ports = 88
     kdc_tcp_ports = 88
@@ -15,3 +16,4 @@
         supported_enctypes = aes256-cts:normal arcfour-hmac:normal des3-hmac-sha1:normal des-cbc-crc:normal des:normal des:v4 des:norealm des:onlyrealm des:afs3
         default_principal_flags = +preauth
     }
+```

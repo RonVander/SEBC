@@ -1,3 +1,4 @@
+```
 anupam@ip-172-31-4-118:~$ kinit anupam
 Password for anupam@RONVANDER.NL: 
 anupam@ip-172-31-4-118:~$ hadoop jar /opt/cloudera/parcels/CDH-5.13.2-1.cdh5.13.2.p0.3/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar pi 50 100 
@@ -148,3 +149,4 @@ Starting Job
 		Bytes Written=97
 Job Finished in 46.304 seconds
 Estimated value of Pi is 3.14160000000000000000
+```

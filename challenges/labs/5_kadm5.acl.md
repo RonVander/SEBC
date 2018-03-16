@@ -1,3 +1,4 @@
+```
 # This file Is the access control list for krb5 administration.
 # When this file is edited run /etc/init.d/krb5-admin-server restart to activate
 # One common way to set up Kerberos administration is to allow any principal 
@@ -19,3 +20,4 @@ cloudera-scm@RONVANDER.NL * solr/*@RONVANDER.NL
 cloudera-scm@RONVANDER.NL * sqoop/*@RONVANDER.NL
 cloudera-scm@RONVANDER.NL * yarn/*@RONVANDER.NL
 cloudera-scm@RONVANDER.NL * zookeeper/*@RONVANDER.NL
+```
