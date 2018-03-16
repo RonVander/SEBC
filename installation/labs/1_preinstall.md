@@ -157,6 +157,10 @@ create database metastore DEFAULT CHARACTER SET utf8;
 create database sentry DEFAULT CHARACTER SET utf8;
 create database nav DEFAULT CHARACTER SET utf8;
 create database navms DEFAULT CHARACTER SET utf8;
+create database hive DEFAULT CHARACTER SET utf8;
+create database scm DEFAULT CHARACTER SET utf8;
+create database oozie DEFAULT CHARACTER SET utf8;
+
 
 
 grant all on amon.* TO 'amon'@'%' IDENTIFIED BY 'password';
@@ -165,6 +169,9 @@ grant all on metastore.* TO 'metastore'@'%' IDENTIFIED BY 'password';
 grant all on sentry.* TO 'sentry'@'%' IDENTIFIED BY 'password';
 grant all on nav.* TO 'nav'@'%' IDENTIFIED BY 'password';
 grant all on navms.* TO 'navms'@'%' IDENTIFIED BY 'password';
+grant all on hive.* TO 'hive'@'%' IDENTIFIED BY 'password';
+grant all on scm.* TO 'scm'@'%' IDENTIFIED BY 'password';
+grant all on oozie.* TO 'oozie'@'%' IDENTIFIED BY 'password';
 ```
 
 install jdk
