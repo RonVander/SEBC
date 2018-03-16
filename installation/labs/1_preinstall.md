@@ -7,7 +7,7 @@ sysconfig check commands
     ```
     sudo sysctl -w vm.swappiness=1
     cat /proc/sys/vm/swappiness
-    /etc/sysctl.conf
+    vi /etc/sysctl.conf
     vm.swappiness=1
     ```
 
@@ -35,9 +35,9 @@ sysconfig check commands
     `nslookup `
 
     Show the nscd service is running
-    `sudo apt-get install nscd;systemctl status nscd; systemctl enable nscd`
+    `sudo apt-get update;sudo apt-get install -y nscd;systemctl status nscd; systemctl enable nscd`
     Show the ntpd service is running
-    `sudo apt-get install ntp;systemctl status ntp.service; systemctl enable ntp.service; `
+    `sudo apt-get update;sudo apt-get install -y ntp;systemctl status ntp.service; systemctl enable ntp.service; `
 
 * set root passwd on instances
 * setup dns for instances (private dns)
